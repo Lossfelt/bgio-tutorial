@@ -1,0 +1,27 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh; /*Sier hvor høy div'en skal være. Her er den 100% av displayet.*/
+}
+
+.center-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column; /*Sier at alle div'ene skal stackes som en kolonne*/
+}
+
+.knapp {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10vh;
+  padding: 0;
+  width: 10vh;
+  height: 10vh;
+}
+
+.text {
+  font-size: 5vh;
+}
