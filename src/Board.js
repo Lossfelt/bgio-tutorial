@@ -22,9 +22,9 @@ export function TicTacToeBoard({ ctx, G, moves }) {
       cells.push(
         <td key={id}>
           {G.cells[id] ? (
-            <button className='knapp'>{G.cells[id] === "0" ? ("☢") : ("☣")}</button>
+            <button className='knapp' type='button'>{G.cells[id] === "0" ? ("☢") : ("☣")}</button>
           ) : (
-            <button className='knapp' onClick={() => onClick(id)} />
+            <button className='knapp' type='button' onClick={() => onClick(id)} />
           )}
         </td>
       );

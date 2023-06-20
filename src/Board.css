@@ -25,3 +25,10 @@
 .text {
   font-size: 5vh; /*Størrelse på symbolene i knappene*/
 }
+
+.multiplayer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row; /*Sier at alle div'ene skal stackes som en rad*/
+}
