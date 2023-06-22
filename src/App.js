@@ -4,6 +4,7 @@ import { TicTacToeBoard } from './Board';
 import { SocketIO } from 'boardgame.io/multiplayer';
 import React, { useState } from 'react';
 import './Board.css';
+import { Lobby } from 'boardgame.io/react';
 
 const TicTacToeClient = Client({
     game: TicTacToe,
@@ -19,9 +20,16 @@ const App = () => {
     };
 
     return (
-        <div className='multiplayer'>
-            {playerchoice ? (<TicTacToeClient playerID={playerchoice} />) : 
-            (<div><button onClick={() => handlePlayerchoice('0')}>Player 0</button> <button onClick={() => handlePlayerchoice('1')}>Player 1</button></div>)}
+        <div className='center-content'>
+            {playerchoice ? (<TicTacToeClient playerID={playerchoice} />) :
+                (<div><button onClick={() => handlePlayerchoice('0')}>Player 0</button> <button onClick={() => handlePlayerchoice('1')}>Player 1</button></div>)}
+            <Lobby
+                gameServer={`https://192.168.4.24:8000`}
+                lobbyServer={`https://192.168.4.24:8000`}
+                gameComponents={[
+                    { game: TicTacToe, board: TicTacToeBoard, }
+                ]}
+            />
         </div>
     );
 
