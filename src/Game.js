@@ -20,7 +20,10 @@ function IsDraw(cells) {
     return cells.filter(c => c === null).length === 0;
 }
 
+// Define the rules of the game
 export const TicTacToe = {
+    name: 'TicTacToe',
+
     setup: () => ({ cells: Array(9).fill(null) }),
 
     turn: {
