@@ -6,4 +6,5 @@ const server = Server({
     origins: [Origins.LOCALHOST, Origins.LOCALHOST_IN_DEVELOPMENT],
 });
 
-server.run(8000);
+//server.run(8000);
+server.run(8000,()=>{console.log("server is running...")});

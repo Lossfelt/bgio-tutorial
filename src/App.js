@@ -24,8 +24,8 @@ const App = () => {
             {/* {playerchoice ? (<TicTacToeClient playerID={playerchoice} />) :
                 (<div><button onClick={() => handlePlayerchoice('0')}>Player 0</button> <button onClick={() => handlePlayerchoice('1')}>Player 1</button></div>)} */}
             <Lobby
-                gameServer={`https://${window.location.hostname}:8000`}
-                lobbyServer={`https://${window.location.hostname}:8000`}/* Previous adress: https://192.168.4.24:8000 */
+                gameServer={`http://${window.location.hostname}:8000`}
+                lobbyServer={`http://${window.location.hostname}:8000`}/* Previous adress: https://192.168.4.24:8000 */
                 gameComponents={[
                     { game: TicTacToe, board: TicTacToeBoard, }
                 ]}
