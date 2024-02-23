@@ -1,4 +1,4 @@
-const {Server, Origins} = require('boardgame.io/server');
+const {Server} = require('boardgame.io/server');
 const {TicTacToe} = require('./Game');
 const cors = require('@koa/cors');
 
