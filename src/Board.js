@@ -1,8 +1,10 @@
 import React from 'react';
 import './Board.css'
 
-export function TicTacToeBoard({ ctx, G, moves }) {
-  const onClick = (id) => moves.clickCell(id);
+export function TicTacToeBoard({ ctx, G, moves, matchData }) {
+  const onClick = (id) => {
+    moves.clickCell(id, matchData);
+  };
 
   let winner = '';
   if (ctx.gameover) {
@@ -40,6 +42,14 @@ export function TicTacToeBoard({ ctx, G, moves }) {
         </table>
         <div className='text'>
           {winner}
+        </div>
+        <div className='gameLog'>
+          <h2>Game Log</h2>
+          <ul>
+          {G.log.map((entry, index) => (
+            <li key={index}>{entry}</li>
+          ))}
+        </ul>
         </div>
       </div>
     </div>

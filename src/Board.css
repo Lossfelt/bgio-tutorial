@@ -2,14 +2,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100vh; /*Sier hvor høy div'en skal være. Her er den 100% av displayet.*/
-}
-
-.center-content {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column; /*Sier at alle div'ene skal stackes som en kolonne*/
 }
 
 .knapp {
@@ -31,4 +23,52 @@
   align-items: center;
   justify-content: center;
   flex-direction: row; /*Sier at alle div'ene skal stackes som en rad*/
+}
+
+.center-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.center-content h1 {
+  color: #333;
+}
+
+.center-content form,
+.center-content div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+}
+
+.center-content input[type='text'] {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100%;
+  max-width: fit-content;
+}
+
+.center-content button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  background-color: #007BFF;
+  color: white;
+  cursor: pointer;
+}
+
+.center-content button:hover {
+  background-color: #0056b3;
+}
+
+.create-game {
+    margin-bottom: 50px;
 }

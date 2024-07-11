@@ -24,7 +24,11 @@ function IsDraw(cells) {
 export const TicTacToe = {
   name: 'TicTacToe',
 
-  setup: () => ({ cells: Array(9).fill(null) }),
+  setup: () => {
+    return { 
+    cells: Array(9).fill(null), 
+    log: [],
+  }},
 
   turn: {
     minMoves: 1,
@@ -32,11 +36,13 @@ export const TicTacToe = {
   },
 
   moves: {
-    clickCell: ({ G, playerID }, id) => {
+    clickCell: ({ G, playerID }, id, matchData) => {
       if (G.cells[id] !== null) {
         return INVALID_MOVE;
       }
       G.cells[id] = playerID;
+
+      G.log.push(`${matchData[playerID].name} clicked cell ${id}`);
     },
   },
 
