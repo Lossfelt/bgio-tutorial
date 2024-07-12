@@ -1,5 +1,18 @@
 import { INVALID_MOVE } from "boardgame.io/core";
 
+//names of the different squares of the board
+const territories = [
+  "The Northwestern Mountains", 
+  "The Northern Tundra", 
+  "The Northwestern Reaches", 
+  "The Western Islands",
+  "The Central Plains", 
+  "The Eastern Urban Ruins", 
+  "The Southwestern Desert",
+  "The Southern River Delta",
+  "The Southeastern Jungle",
+];
+
 // Return true if `cells` is in a winning configuration.
 function IsVictory(cells) {
   const positions = [
@@ -16,7 +29,7 @@ function IsVictory(cells) {
 }
 
 // Return true if all `cells` are occupied.
-function IsDraw(cells) {
+function IsDraw(cells) { //endre denne til å bli Strategic Assets Unlocked når alle celler er fulle
   return cells.filter(c => c === null).length === 0;
 }
 
@@ -42,7 +55,7 @@ export const TicTacToe = {
       }
       G.cells[id] = playerID;
 
-      G.log.unshift(`${matchData[playerID].name} clicked cell ${id}`);
+      G.log.unshift(`${matchData[playerID].name} claims ${territories[id]}`);
     },
   },
 
@@ -53,9 +66,9 @@ export const TicTacToe = {
     if (IsVictory(G.cells)) {
       return { winner: ctx.currentPlayer };
     }
-    if (IsDraw(G.cells)) {
+    /* if (IsDraw(G.cells)) {
       return { draw: true };
-    }
+    } */
   },
 
   ai: {
