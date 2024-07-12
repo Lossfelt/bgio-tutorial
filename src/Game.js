@@ -29,9 +29,10 @@ function IsVictory(cells) {
 }
 
 // Return true if all `cells` are occupied.
-function IsDraw(cells) { //endre denne til å bli Strategic Assets Unlocked når alle celler er fulle
+//endre denne til å bli Strategic Assets Unlocked når alle celler er fulle
+/* function IsDraw(cells) {
   return cells.filter(c => c === null).length === 0;
-}
+} */
 
 // Define the rules of the game
 export const TicTacToe = {
