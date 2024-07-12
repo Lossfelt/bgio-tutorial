@@ -78,7 +78,7 @@ const App = () => {
                         <button onClick={handleCreate}>Create Game</button>
                     </div>
                     <div>
-                        <input ref={matchInput} type='text' placeholder='Enter match ID' />
+                        <input ref={matchInput} type='number' placeholder='Enter match ID' />
                         <button onClick={() => handleJoin()}>Join Game</button>
                     </div>
                 </div>
