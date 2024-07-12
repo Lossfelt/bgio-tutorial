@@ -42,6 +42,7 @@ export const TicTacToe = {
     return { 
     cells: Array(9).fill(null), 
     log: [],
+    blink: Array(9).fill(false),
   }},
 
   turn: {
@@ -52,6 +53,7 @@ export const TicTacToe = {
         if (G.cells[i] !== null && random.Number() < 0.1) {
           G.cells[i] = null;
           G.log.unshift(`The people of ${territories[i]} revolt against foreign rule`);
+          G.blink[i] = true;
         }
       }
     },
@@ -59,6 +61,7 @@ export const TicTacToe = {
 
   moves: {
     clickCell: ({ G, playerID, random }, id, matchData) => {
+      G.blink.fill(false);
       if (G.cells[id] === playerID) {
         return INVALID_MOVE;
       }
@@ -66,14 +69,17 @@ export const TicTacToe = {
         if (random.Number() < 0.2) {
           G.cells[id] = playerID;
           G.log.unshift(`${matchData[playerID].name} conquers ${territories[id]}`);
+          G.blink[id] = true;
         }
         else {
           G.log.unshift(`${matchData[playerID].name} attempts to invade ${territories[id]}, but fails`);
+          G.blink[id] = true;
         }
       }
       else {
         G.cells[id] = playerID;
         G.log.unshift(`${matchData[playerID].name} claims ${territories[id]}`);
+        G.blink[id] = true;
       }
     },
   },

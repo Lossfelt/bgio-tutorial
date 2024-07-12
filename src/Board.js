@@ -24,9 +24,9 @@ export function TicTacToeBoard({ ctx, G, moves, matchData }) {
       cells.push(
         <td key={id}>
           {G.cells[id] ? (
-            <button className='knapp' type='button' onClick={() => onClick(id)}>{G.cells[id] === "0" ? ("☢") : ("☣")}</button>
+            <button className={G.blink[id] ? ("knapp blink") : ("knapp")} type='button' onClick={() => onClick(id)}>{G.cells[id] === "0" ? ("☢") : ("☣")}</button>
           ) : (
-            <button className='knapp' type='button' onClick={() => onClick(id)} />
+            <button className={G.blink[id] ? ("knapp blink") : ("knapp")} type='button' onClick={() => onClick(id)} />
           )}
         </td>
       );
