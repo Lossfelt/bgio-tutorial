@@ -6,7 +6,7 @@ export function TicTacToeBoard({ ctx, G, moves, matchData }) {
     moves.clickCell(id, matchData);
   };
 
-  let winner = '';
+  let winner = ''; //her må jeg endre koden, ettersom det ikke er mulig med Draw som resultat
   if (ctx.gameover) {
     winner =
       ctx.gameover.winner !== undefined ? (
@@ -24,7 +24,7 @@ export function TicTacToeBoard({ ctx, G, moves, matchData }) {
       cells.push(
         <td key={id}>
           {G.cells[id] ? (
-            <button className='knapp' type='button'>{G.cells[id] === "0" ? ("☢") : ("☣")}</button>
+            <button className='knapp' type='button' onClick={() => onClick(id)}>{G.cells[id] === "0" ? ("☢") : ("☣")}</button>
           ) : (
             <button className='knapp' type='button' onClick={() => onClick(id)} />
           )}

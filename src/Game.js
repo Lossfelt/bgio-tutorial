@@ -50,13 +50,23 @@ export const TicTacToe = {
   },
 
   moves: {
-    clickCell: ({ G, playerID }, id, matchData) => {
-      if (G.cells[id] !== null) {
+    clickCell: ({ G, playerID, random }, id, matchData) => {
+      if (G.cells[id] === playerID) {
         return INVALID_MOVE;
       }
-      G.cells[id] = playerID;
-
-      G.log.unshift(`${matchData[playerID].name} claims ${territories[id]}`);
+      else if (G.cells[id] !== null) {
+        if (random.Number() < 0.2) {
+          G.cells[id] = playerID;
+          G.log.unshift(`${matchData[playerID].name} conquers ${territories[id]}`);
+        }
+        else {
+          G.log.unshift(`${matchData[playerID].name} attempts to invade ${territories[id]}, but fails`);
+        }
+      }
+      else {
+        G.cells[id] = playerID;
+        G.log.unshift(`${matchData[playerID].name} claims ${territories[id]}`);
+      }
     },
   },
 
