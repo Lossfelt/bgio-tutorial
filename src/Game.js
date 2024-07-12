@@ -47,6 +47,14 @@ export const TicTacToe = {
   turn: {
     minMoves: 1,
     maxMoves: 1,
+    onEnd: ({G, random}) => {
+      for (let i = 0; i < 9; i++) {
+        if (G.cells[i] !== null && random.Number() < 0.1) {
+          G.cells[i] = null;
+          G.log.unshift(`The people of ${territories[i]} revolt against foreign rule`);
+        }
+      }
+    },
   },
 
   moves: {
