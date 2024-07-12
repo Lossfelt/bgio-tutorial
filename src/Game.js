@@ -42,7 +42,7 @@ export const TicTacToe = {
       }
       G.cells[id] = playerID;
 
-      G.log.push(`${matchData[playerID].name} clicked cell ${id}`);
+      G.log.unshift(`${matchData[playerID].name} clicked cell ${id}`);
     },
   },
 
