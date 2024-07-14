@@ -37,9 +37,11 @@ export function TicTacToeBoard({ ctx, G, moves, matchData }) {
   return (
     <div className="container">
       <div className='center-content'>
+        <h1>{matchData[0].name}☢ vs {matchData[1].name}☣</h1>
         <table>
           <tbody>{tbody}</tbody>
         </table>
+        <h3>Current turn: {ctx.currentPlayer === "0" ? ("☢") : ("☣")}</h3>
         <div className='text'>
           {winner}
         </div>

@@ -66,7 +66,7 @@ const App = () => {
 
     return (
         <div className='center-content'>
-            {name ? (<h1>Welcome, {name}!</h1>): (<h1>Welcome!</h1>)}
+            {name && !joined ? (<h1>Welcome, general {name}!</h1>) : !name ? (<h1>Who will lead the troops?</h1>) : null}
             {!name ? (
                 <form onSubmit={handleNameChange}>
                     <input ref={nameInput} type='text' placeholder='Enter your name' />
