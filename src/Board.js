@@ -4,6 +4,7 @@ import './Board.css'
 export function TicTacToeBoard({ ctx, G, moves, matchData }) {
   const onClick = (id) => {
     moves.clickCell(id, matchData);
+    //setTimeout(() => {G.blink.fill(false)}, 1000);
   };
 
   let winner = ''; //her må jeg endre koden, ettersom det ikke er mulig med Draw som resultat
