@@ -73,11 +73,9 @@ export const TicTacToe = {
         if (random.Number() < 0.2) {
           G.cells[id] = playerID;
           G.log.unshift(`${matchData[playerID].name} conquers ${territories[id]}`);
-          //G.blink[id] = true;
         }
         else {
           G.log.unshift(`${matchData[playerID].name} attempts to invade ${territories[id]}, but fails`);
-          //G.blink[id] = true;
         }
         G.blink[id] = true;
         G.lastCellAttacked = id;

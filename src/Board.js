@@ -1,11 +1,27 @@
-import React from 'react';
 import './Board.css'
+import React, { useState, useEffect } from 'react';
 
 export function TicTacToeBoard({ ctx, G, moves, matchData }) {
+  
+  // Lokal state for å lagre G.blink
+  const [blinking, setBlinking] = useState(G.blink);
+  // Oppdater lokal state når G.blink endres
+  useEffect(() => {
+    setBlinking(G.blink);
+  }, [G.blink]);
+  // Funksjon for å håndtere slutten av animasjonen og fjerne blink
+  const handleAnimationEnd = (id) => {
+    setBlinking((blinking) => {
+    const newBlinking = [...blinking];
+    newBlinking[id] = false;
+    return newBlinking;
+    });
+  };
+
   const onClick = (id) => {
     moves.clickCell(id, matchData);
-    //setTimeout(() => {G.blink.fill(false)}, 1000);
   };
+
 
   let winner = ''; //her må jeg endre koden, ettersom det ikke er mulig med Draw som resultat
   if (ctx.gameover) {
@@ -25,9 +41,9 @@ export function TicTacToeBoard({ ctx, G, moves, matchData }) {
       cells.push(
         <td key={id}>
           {G.cells[id] ? (
-            <button className={G.blink[id] ? ("knapp blink") : ("knapp")} type='button' onClick={() => onClick(id)}>{G.cells[id] === "0" ? ("☢") : ("☣")}</button>
+            <button className={blinking[id] ? ("knapp blink") : ("knapp")} type='button' onClick={() => onClick(id)} onAnimationEnd={() => handleAnimationEnd(id)}>{G.cells[id] === "0" ? ("☢") : ("☣")}</button>
           ) : (
-            <button className={G.blink[id] ? ("knapp blink") : ("knapp")} type='button' onClick={() => onClick(id)} />
+            <button className={blinking[id] ? ("knapp blink") : ("knapp")} type='button' onClick={() => onClick(id)} onAnimationEnd={() => handleAnimationEnd(id)}/>
           )}
         </td>
       );
