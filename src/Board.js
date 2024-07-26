@@ -1,7 +1,7 @@
 import './Board.css'
 import React, { useState, useEffect } from 'react';
 
-export function TicTacToeBoard({ ctx, G, moves, matchData }) {
+export function TicTacToeBoard({ ctx, G, moves, matchData, playerID }) {
   
   // Lokal state for å lagre G.blink
   const [blinking, setBlinking] = useState(G.blink);
@@ -59,6 +59,7 @@ export function TicTacToeBoard({ ctx, G, moves, matchData }) {
           <tbody>{tbody}</tbody>
         </table>
         <h3>Current turn: {ctx.currentPlayer === "0" ? ("☢") : ("☣")}</h3>
+        <button >{G.MWD[playerID]}</button>
         <div className='text'>
           {winner}
         </div>

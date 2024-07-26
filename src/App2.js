@@ -84,8 +84,10 @@ const App = () => {
                 </div>
             ) : (
                 <div>
-                    <h2>Match ID: {matchID}</h2>
+                    <div className='match-ID-and-leave-button'>
+                    <h3>Match ID: {matchID}</h3>
                     <button onClick={handleLeave}>Leave Game</button>
+                    </div>
                     <TicTacToeClient 
                         playerID={playerID} 
                         credentials={credentials} 

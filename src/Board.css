@@ -56,6 +56,8 @@
 
 .center-content h1 {
   color: #333;
+  margin: 0;
+  border-bottom: 1px solid #333;
 }
 
 .center-content form,
@@ -90,4 +92,30 @@
 
 .create-game {
     margin-bottom: 50px;
+}
+
+.match-ID-and-leave-button {
+  border: 1px solid #333;
+  border-radius: 5px;
+}
+
+.match-ID-and-leave-button h3 {
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.match-ID-and-leave-button button {
+  margin-bottom: 5px;
+}
+
+.gameLog {
+  border: 1px solid #333;
+  border-radius: 5px;
+}
+
+.gameLog h2, ul {
+  margin-top: 2px;
+  margin-bottom: 0;
 }

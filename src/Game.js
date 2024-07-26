@@ -13,6 +13,11 @@ const territories = [
   "The Southeastern Jungle",
 ];
 
+const strategic_weapons = [
+  "Artillery",
+  "Nuke",
+];
+
 // Return true if `cells` is in a winning configuration.
 function IsVictory(cells) {
   const positions = [
@@ -44,13 +49,16 @@ export const TicTacToe = {
     log: [],
     blink: Array(9).fill(false),
     lastCellAttacked: null,
+    MWD: Array(2).fill(null),
   }},
 
   turn: {
     minMoves: 1,
     maxMoves: 1,
-    onBegin: ({G}) => {
+    onBegin: ({G, ctx, random}) => {
       G.lastCellAttacked = null;
+      G.MWD[ctx.currentPlayer] = strategic_weapons[random.Die(strategic_weapons.length) - 1];
+      //console.log(G.MWD[ctx.currentPlayer]);
     },
     onEnd: ({G, random}) => {
       for (let i = 0; i < 9; i++) {
@@ -86,6 +94,9 @@ export const TicTacToe = {
         G.blink[id] = true;
         G.lastCellAttacked = id;
       }
+    },
+    MWD: ({ G, playerID }, id, matchData) => {
+      //todo: implement MWD
     },
   },
 
