@@ -16,6 +16,7 @@ const territories = [
 const strategic_weapons = [
   "Artillery",
   "Nuke",
+  "Air Strike",
 ];
 
 // Return true if `cells` is in a winning configuration.

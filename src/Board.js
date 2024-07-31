@@ -1,7 +1,7 @@
 import './Board.css'
 import React, { useState, useEffect } from 'react';
 
-export function TicTacToeBoard({ ctx, G, moves, matchData, playerID }) {
+export function TicTacToeBoard({ ctx, G, moves, matchData, playerID, isActive }) {
   
   // Lokal state for å lagre G.blink
   const [blinking, setBlinking] = useState(G.blink);
@@ -18,8 +18,42 @@ export function TicTacToeBoard({ ctx, G, moves, matchData, playerID }) {
     });
   };
 
-  const onClick = (id) => {
-    moves.clickCell(id, matchData);
+  //lokal state for å håndtere bruk av strategiske våpen
+  const [specialMoveActive, setSpecialMoveActive] = useState(false);
+  const [targetsOfSpecialMove, setTargetsOfSpecialMove] = useState([]);
+  //funksjon for når en spiller aktiverer et strategisk våpen
+  const handleSpecialMoveClick = () => {
+    if(!specialMoveActive){
+      setSpecialMoveActive(G.MWD[playerID]);
+    } else {
+      setSpecialMoveActive(false);
+      setTargetsOfSpecialMove([]);
+    }
+    console.log(specialMoveActive);
+  };
+  //første strategiske våpen
+  const airStrike = (id) =>{
+    setTargetsOfSpecialMove((targetsOfSpecialMove) => {
+      const newTargets = [...targetsOfSpecialMove, id];
+      return newTargets;
+    })
+  }
+  useEffect(() => {
+    if(targetsOfSpecialMove.length === 3){
+      console.log(targetsOfSpecialMove);
+      setTargetsOfSpecialMove([]);
+    }
+  }, [targetsOfSpecialMove]);
+
+  //funksjon for å klikke på de vanlige cellene
+  const clickCell = (id) => {
+    if(specialMoveActive){
+      console.log("Special move active og vanlig funksjon ute av drift");
+      airStrike(id);
+    }
+    else {
+      moves.clickCell(id, matchData);
+    }
   };
 
 
@@ -41,9 +75,9 @@ export function TicTacToeBoard({ ctx, G, moves, matchData, playerID }) {
       cells.push(
         <td key={id}>
           {G.cells[id] ? (
-            <button className={blinking[id] ? ("knapp blink") : ("knapp")} type='button' onClick={() => onClick(id)} onAnimationEnd={() => handleAnimationEnd(id)}>{G.cells[id] === "0" ? ("☢") : ("☣")}</button>
+            <button className={blinking[id] ? ("knapp blink") : ("knapp")} type='button' onClick={() => clickCell(id)} onAnimationEnd={() => handleAnimationEnd(id)}>{G.cells[id] === "0" ? ("☢") : ("☣")}</button>
           ) : (
-            <button className={blinking[id] ? ("knapp blink") : ("knapp")} type='button' onClick={() => onClick(id)} onAnimationEnd={() => handleAnimationEnd(id)}/>
+            <button className={blinking[id] ? ("knapp blink") : ("knapp")} type='button' onClick={() => clickCell(id)} onAnimationEnd={() => handleAnimationEnd(id)}/>
           )}
         </td>
       );
@@ -59,7 +93,10 @@ export function TicTacToeBoard({ ctx, G, moves, matchData, playerID }) {
           <tbody>{tbody}</tbody>
         </table>
         <h3>Current turn: {ctx.currentPlayer === "0" ? ("☢") : ("☣")}</h3>
-        <button >{G.MWD[playerID]}</button>
+        <button 
+        style={specialMoveActive ? {backgroundColor: "red"} : {}} 
+        onClick={() => handleSpecialMoveClick()} 
+        disabled={!isActive}>{G.MWD[playerID]}</button>
         <div className='text'>
           {winner}
         </div>
