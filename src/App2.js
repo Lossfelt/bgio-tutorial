@@ -5,6 +5,7 @@ import { SocketIO } from 'boardgame.io/multiplayer';
 import { LobbyClient } from 'boardgame.io/client';
 import React, { useState, useRef } from 'react';
 import './Board.css';
+import AboutPopup from './AboutPopup';
 
 const TicTacToeClient = Client({
     game: TicTacToe,
@@ -21,8 +22,13 @@ const App = () => {
     const [credentials, setCredentials] = useState('');
     const [playerID, setPlayerID] = useState('');
     const [joined, setJoined] = useState(false);
+    const [showAbout, setShowAbout] = useState(false);
     const nameInput = useRef();
     const matchInput = useRef();
+
+    const handleAbout = () => {
+        setShowAbout(!showAbout);
+    };
 
     const handleNameChange = (event) => {
         event.preventDefault();
@@ -94,6 +100,8 @@ const App = () => {
                         matchID={matchID} />
                 </div>
             )}
+                <button style={{ position: 'fixed', top: '10px', right: '10px', backgroundColor: 'grey', padding: 5 }} onClick={handleAbout}>About</button>
+                {showAbout && <AboutPopup onClose={handleAbout} />}
         </div>
     );
 };

@@ -2,7 +2,7 @@ import './Board.css'
 import React, { useState, useEffect } from 'react';
 
 export function TicTacToeBoard({ ctx, G, moves, matchData, playerID, isActive }) {
-  
+
   // Lokal state for å lagre G.blink
   const [blinking, setBlinking] = useState(G.blink);
   // Oppdater lokal state når G.blink endres
@@ -12,9 +12,9 @@ export function TicTacToeBoard({ ctx, G, moves, matchData, playerID, isActive })
   // Funksjon for å håndtere slutten av animasjonen og fjerne blink
   const handleAnimationEnd = (id) => {
     setBlinking((blinking) => {
-    const newBlinking = [...blinking];
-    newBlinking[id] = false;
-    return newBlinking;
+      const newBlinking = [...blinking];
+      newBlinking[id] = false;
+      return newBlinking;
     });
   };
 
@@ -23,33 +23,43 @@ export function TicTacToeBoard({ ctx, G, moves, matchData, playerID, isActive })
   const [targetsOfSpecialMove, setTargetsOfSpecialMove] = useState([]);
   //funksjon for når en spiller aktiverer et strategisk våpen
   const handleSpecialMoveClick = () => {
-    if(!specialMoveActive){
+    if (!specialMoveActive) {
       setSpecialMoveActive(G.MWD[playerID]);
     } else {
       setSpecialMoveActive(false);
       setTargetsOfSpecialMove([]);
     }
-    console.log(specialMoveActive);
   };
   //første strategiske våpen
-  const airStrike = (id) =>{
+  const specialAttack = (id) => {
     setTargetsOfSpecialMove((targetsOfSpecialMove) => {
       const newTargets = [...targetsOfSpecialMove, id];
       return newTargets;
     })
   }
   useEffect(() => {
-    if(targetsOfSpecialMove.length === 3){
+    if (specialMoveActive === "Air Strike" && targetsOfSpecialMove.length === 3) {
       console.log(targetsOfSpecialMove);
+      console.log("Air Strike");
       setTargetsOfSpecialMove([]);
+      setSpecialMoveActive(false);
     }
-  }, [targetsOfSpecialMove]);
+    if (specialMoveActive === "Nuke") {
+      console.log("Nuke");
+      setTargetsOfSpecialMove([]);
+      setSpecialMoveActive(false);
+    }
+    if (specialMoveActive === "Artillery" && targetsOfSpecialMove.length === 1) {
+      console.log("Artillery");
+      setTargetsOfSpecialMove([]);
+      setSpecialMoveActive(false);
+    }
+  }, [targetsOfSpecialMove, specialMoveActive]);
 
   //funksjon for å klikke på de vanlige cellene
   const clickCell = (id) => {
-    if(specialMoveActive){
-      console.log("Special move active og vanlig funksjon ute av drift");
-      airStrike(id);
+    if (specialMoveActive) {
+      specialAttack(id);
     }
     else {
       moves.clickCell(id, matchData);
@@ -77,7 +87,7 @@ export function TicTacToeBoard({ ctx, G, moves, matchData, playerID, isActive })
           {G.cells[id] ? (
             <button className={blinking[id] ? ("knapp blink") : ("knapp")} type='button' onClick={() => clickCell(id)} onAnimationEnd={() => handleAnimationEnd(id)}>{G.cells[id] === "0" ? ("☢") : ("☣")}</button>
           ) : (
-            <button className={blinking[id] ? ("knapp blink") : ("knapp")} type='button' onClick={() => clickCell(id)} onAnimationEnd={() => handleAnimationEnd(id)}/>
+            <button className={blinking[id] ? ("knapp blink") : ("knapp")} type='button' onClick={() => clickCell(id)} onAnimationEnd={() => handleAnimationEnd(id)} />
           )}
         </td>
       );
@@ -93,20 +103,20 @@ export function TicTacToeBoard({ ctx, G, moves, matchData, playerID, isActive })
           <tbody>{tbody}</tbody>
         </table>
         <h3>Current turn: {ctx.currentPlayer === "0" ? ("☢") : ("☣")}</h3>
-        <button 
-        style={specialMoveActive ? {backgroundColor: "red"} : {}} 
-        onClick={() => handleSpecialMoveClick()} 
-        disabled={!isActive}>{G.MWD[playerID]}</button>
+        <button
+          style={specialMoveActive ? { backgroundColor: "red" } : {}}
+          onClick={() => handleSpecialMoveClick()}
+          disabled={!isActive}>{G.MWD[playerID]}</button>
         <div className='text'>
           {winner}
         </div>
         <div className='gameLog'>
           <h2>Game Log</h2>
           <ul>
-          {G.log.map((entry, index) => (
-            <li key={index}>{entry}</li>
-          ))}
-        </ul>
+            {G.log.map((entry, index) => (
+              <li key={index}>{entry}</li>
+            ))}
+          </ul>
         </div>
       </div>
     </div>
