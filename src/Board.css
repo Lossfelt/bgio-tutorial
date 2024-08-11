@@ -119,3 +119,17 @@
   margin-top: 2px;
   margin-bottom: 0;
 }
+
+/* CSS for at popup skal legge seg på toppen av det bak */
+.popup {
+  position: absolute;
+  top: 5%;
+  left: 5%;
+  max-width: 85%;
+  padding: 16px;
+  border: 16px solid rgb(0, 204, 255);
+  border-radius: 10px;
+  background-color: rgb(192, 191, 191);
+  z-index: 1001;
+  overflow: auto;
+}
