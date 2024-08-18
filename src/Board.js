@@ -44,11 +44,6 @@ export function TicTacToeBoard({ ctx, G, moves, matchData, playerID, isActive })
       setTargetsOfSpecialMove([]);
       setSpecialMoveActive(false);
     }
-    if (specialMoveActive === "Nuke") {
-      console.log("Nuke");
-      setTargetsOfSpecialMove([]);
-      setSpecialMoveActive(false);
-    }
     if (specialMoveActive === "Artillery" && targetsOfSpecialMove.length === 1) {
       console.log("Artillery");
       setTargetsOfSpecialMove([]);

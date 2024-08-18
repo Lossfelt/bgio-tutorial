@@ -15,7 +15,6 @@ const territories = [
 
 const strategic_weapons = [
   "Artillery",
-  "Nuke",
   "Air Strike",
 ];
 
