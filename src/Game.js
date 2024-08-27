@@ -97,6 +97,14 @@ export const TicTacToe = {
     },
     MWD: ({ G, playerID }, id, matchData) => {
       //todo: implement MWD
+      if (G.MWD[playerID] === "Artillery") {
+        G.log.unshift(`${matchData[playerID].name} launches an artillery strike`);
+        G.lastCellAttacked = id;
+      }
+      else if (G.MWD[playerID] === "Air Strike") {
+        G.log.unshift(`${matchData[playerID].name} launches an air strike`);
+        G.lastCellAttacked = id;
+      }
     },
   },
 

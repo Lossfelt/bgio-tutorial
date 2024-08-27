@@ -17,6 +17,8 @@ const server = Server({
         },
 });
 
+const PORT = process.env.PORT || 8000;
+
 server.app.middleware.unshift(cors());
 
-server.run(8000,()=>{console.log("server is running...")});
+server.run(PORT,()=>{console.log("server is running...")});
