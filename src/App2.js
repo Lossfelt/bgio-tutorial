@@ -10,11 +10,11 @@ import AboutPopup from './AboutPopup';
 const TicTacToeClient = Client({
     game: TicTacToe,
     board: TicTacToeBoard,
-    multiplayer: SocketIO({ server: `${window.location.hostname}:8000` }),
+    multiplayer: SocketIO({ server: process.env.REACT_APP_BACKEND_URL || `${window.location.hostname}:8000` }),
     debug: false,
 });
 
-const lobbyClient = new LobbyClient({ server: `${window.location.protocol}//${window.location.hostname}:8000` });
+const lobbyClient = new LobbyClient({ server: process.env.REACT_APP_BACKEND_URL || `${window.location.protocol}//${window.location.hostname}:8000` });
 
 const App = () => {
     const [name, setName] = useState('');
