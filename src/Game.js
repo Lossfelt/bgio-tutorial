@@ -64,7 +64,7 @@ export const TicTacToe = {
       for (let i = 0; i < 9; i++) {
         if (G.cells[i] !== null && random.Number() < 0.1 && i !== G.lastCellAttacked) {
           G.cells[i] = null;
-          G.log.unshift(`The people of ${territories[i]} revolt against foreign rule`);
+          G.log.unshift(`The people of ${territories[i]} revolt against foreign rule`); //10% chance of revolt
           G.blink[i] = true;
         }
       }
@@ -79,7 +79,7 @@ export const TicTacToe = {
       }
       else if (G.cells[id] !== null) {
         if (random.Number() < 0.2) {
-          G.cells[id] = playerID;
+          G.cells[id] = playerID; //20% chance of conquering
           G.log.unshift(`${matchData[playerID].name} conquers ${territories[id]}`);
         }
         else {
