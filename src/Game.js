@@ -73,9 +73,9 @@ export const TicTacToe = {
     },
     onEnd: ({G, random}) => {
       for (let i = 0; i < 16; i++) {
-        if (G.cells[i] !== null && random.Number() < 0.1 && i !== G.lastCellAttacked) {
+        if (G.cells[i] !== null && random.Number() < 0.05 && i !== G.lastCellAttacked) {
           G.cells[i] = null;
-          G.log.unshift(`The people of ${territories[i]} revolt against foreign rule`); //10% chance of revolt
+          G.log.unshift(`The people of ${territories[i]} revolt against foreign rule`); //5% chance of revolt
           G.blink[i] = true;
         }
       }
