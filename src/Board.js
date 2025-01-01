@@ -61,22 +61,18 @@ export function TicTacToeBoard({ ctx, G, moves, matchData, playerID, isActive })
     }
   };
 
-
-  let winner = ''; //her må jeg endre koden, ettersom det ikke er mulig med Draw som resultat
+  let winner = '';
   if (ctx.gameover) {
-    winner =
-      ctx.gameover.winner !== undefined ? (
-        <div id="winner">Winner: {ctx.gameover.winner === "0" ? ("☢") : ("☣")}</div>
-      ) : (
-        <div id="winner">Draw!</div>
-      );
+    winner = (
+      <div id="winner">Winner: {ctx.gameover.winner === "0" ? ("☢") : ("☣")}</div>
+    );
   }
 
   let tbody = [];
-  for (let i = 0; i < 3; i++) {
+  for (let i = 0; i < 4; i++) {
     let cells = [];
-    for (let j = 0; j < 3; j++) {
-      const id = 3 * i + j;
+    for (let j = 0; j < 4; j++) {
+      const id = 4 * i + j;
       cells.push(
         <td key={id}>
           {G.cells[id] ? (

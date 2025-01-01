@@ -2,15 +2,22 @@ import { INVALID_MOVE } from "boardgame.io/core";
 
 //names of the different squares of the board
 const territories = [
-  "The Northwestern Mountains", 
-  "The Northern Tundra", 
-  "The Northwestern Reaches", 
-  "The Western Islands",
-  "The Central Plains", 
-  "The Eastern Urban Ruins", 
-  "The Southwestern Desert",
-  "The Southern River Delta",
-  "The Southeastern Jungle",
+  "Salt Marches", 
+  "Corn Belt Desert", 
+  "Hudson's Pit", 
+  "Port Orchard",
+  "Port Crater", 
+  "Savannah Fragments", 
+  "Ash Plains",
+  "Rust Belt Ruins",
+  "Angels' Remnants",
+  "Oklahoma Rift",
+  "Dusty Delta",
+  "Shining Desert",
+  "Shattered Mountains",
+  "Plains of Iron",
+  "Confederate Shards",
+  "Sunset Swamps"
 ];
 
 const strategic_weapons = [
@@ -21,8 +28,12 @@ const strategic_weapons = [
 // Return true if `cells` is in a winning configuration.
 function IsVictory(cells) {
   const positions = [
-    [0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6],
-    [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]
+    // Horisontale linjer
+    [0, 1, 2, 3], [4, 5, 6, 7], [8, 9, 10, 11], [12, 13, 14, 15],
+    // Vertikale linjer
+    [0, 4, 8, 12], [1, 5, 9, 13], [2, 6, 10, 14], [3, 7, 11, 15],
+    // Diagonale linjer
+    [0, 5, 10, 15], [3, 6, 9, 12]
   ];
 
   const isRowComplete = row => {
@@ -45,9 +56,9 @@ export const TicTacToe = {
 
   setup: () => {
     return { 
-    cells: Array(9).fill(null), 
+    cells: Array(16).fill(null), 
     log: [],
-    blink: Array(9).fill(false),
+    blink: Array(16).fill(false),
     lastCellAttacked: null,
     MWD: Array(2).fill(null),
   }},
@@ -61,7 +72,7 @@ export const TicTacToe = {
       //console.log(G.MWD[ctx.currentPlayer]);
     },
     onEnd: ({G, random}) => {
-      for (let i = 0; i < 9; i++) {
+      for (let i = 0; i < 16; i++) {
         if (G.cells[i] !== null && random.Number() < 0.1 && i !== G.lastCellAttacked) {
           G.cells[i] = null;
           G.log.unshift(`The people of ${territories[i]} revolt against foreign rule`); //10% chance of revolt
@@ -123,7 +134,7 @@ export const TicTacToe = {
   ai: {
     enumerate: (G, ctx) => {
       let moves = [];
-      for (let i = 0; i < 9; i++) {
+      for (let i = 0; i < 16; i++) {
         if (G.cells[i] === null) {
           moves.push({ move: 'clickCell', args: [i] });
         }
