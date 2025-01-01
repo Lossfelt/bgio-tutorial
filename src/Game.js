@@ -126,9 +126,6 @@ export const TicTacToe = {
     if (IsVictory(G.cells)) {
       return { winner: ctx.currentPlayer };
     }
-    /* if (IsDraw(G.cells)) {
-      return { draw: true };
-    } */
   },
 
   ai: {
