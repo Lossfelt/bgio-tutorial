@@ -2,22 +2,22 @@ import { INVALID_MOVE } from "boardgame.io/core";
 
 //names of the different squares of the board
 const territories = [
-  "Salt Marches", 
-  "Corn Belt Desert", 
+  "the Salt Marches", 
+  "the Corn Belt Desert", 
   "Hudson's Pit", 
   "Port Orchard",
   "Port Crater", 
-  "Savannah Fragments", 
-  "Ash Plains",
-  "Rust Belt Ruins",
+  "the Savannah Fragments", 
+  "the Ash Plains",
+  "the Rust Belt Ruins",
   "Angels' Remnants",
   "Oklahoma Rift",
-  "Dusty Delta",
-  "Shining Desert",
-  "Shattered Mountains",
-  "Plains of Iron",
-  "Confederate Shards",
-  "Sunset Swamps"
+  "the Dusty Delta",
+  "the Shining Desert",
+  "the Shattered Mountains",
+  "the Plains of Iron",
+  "the Confederate Shards",
+  "the Sunset Swamps"
 ];
 
 const strategic_weapons = [
