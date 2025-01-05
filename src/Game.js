@@ -35,27 +35,16 @@ const positions = [
   [0, 5, 10, 15], [3, 6, 9, 12]
 ];
 
-// General validator function
-function ValidatePositions(ids, validator) {
-  return positions.some(row => validator(row, ids));
-}
-
 // Check if `cells` is in a winning configuration
 function IsVictory(cells) {
   const isRowComplete = (row, cells) => {
     const symbols = row.map(i => cells[i]);
     return symbols.every(i => i !== null && i === symbols[0]);
   };
-  return ValidatePositions(cells, isRowComplete);
+  return positions.some(row => isRowComplete(row, cells));
 }
 
-// Check if a set of IDs forms a valid alignment
-function IsAligned(ids) {
-  const areIdsAligned = (row, ids) => row.every(pos => ids.includes(pos));
-  return ValidatePositions(ids, areIdsAligned);
-}
-
-// egen funksjon for å teste om celler er på rad
+// funksjon for å teste om celler er på rad, enten horisontalt, vertikalt eller diagonalt, ved Air Strike
 function IsRow(input) {
   return positions.some(row => input.every(pos => row.includes(pos)));
 }
@@ -130,17 +119,16 @@ export const TicTacToe = {
         const targets = [input, ...GetNeighbors(input)];
         targets.forEach(target => {
           G.cells[target] = null; // Destroy targeted cells
+          G.blink[target] = true;
         });
-        G.log.unshift(`${matchData[playerID].name} launches an artillery strike at ${territories[input]} and its neighbors!`);
+        G.log.unshift(`${matchData[playerID].name} launches an Artillery Strike at ${territories[input]} and its neighbors!`);
         G.lastCellAttacked = input;
       } else if (G.MWD[playerID] === "Air Strike") {
-        console.log(input);
-        console.log(typeof input);
-        console.log(IsRow(input));
         if (input.length === 3 && IsRow(input)) {
           G.log.unshift(`${matchData[playerID].name} launches an Air Strike at ${input.map(id => territories[id]).join(", ")}`);
           input.forEach(id => {
             G.cells[id] = null; // Destroy targeted cells
+            G.blink[id] = true;
           });
           G.lastCellAttacked = input[2];
         } else {
