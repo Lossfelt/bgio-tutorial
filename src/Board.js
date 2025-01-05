@@ -30,26 +30,26 @@ export function TicTacToeBoard({ ctx, G, moves, matchData, playerID, isActive })
       setTargetsOfSpecialMove([]);
     }
   };
-  //første strategiske våpen
+  //Legg til en ID som mål for strategisk våpen
   const specialAttack = (id) => {
     setTargetsOfSpecialMove((targetsOfSpecialMove) => {
       const newTargets = [...targetsOfSpecialMove, id];
       return newTargets;
     })
   }
+  //Bruk av strategisk våpen
   useEffect(() => {
     if (specialMoveActive === "Air Strike" && targetsOfSpecialMove.length === 3) {
-      console.log(targetsOfSpecialMove);
-      console.log("Air Strike");
+      moves.MWD(targetsOfSpecialMove, matchData);
       setTargetsOfSpecialMove([]);
       setSpecialMoveActive(false);
     }
     if (specialMoveActive === "Artillery" && targetsOfSpecialMove.length === 1) {
-      console.log("Artillery");
+      moves.MWD(targetsOfSpecialMove[0], matchData);
       setTargetsOfSpecialMove([]);
       setSpecialMoveActive(false);
     }
-  }, [targetsOfSpecialMove, specialMoveActive]);
+  }, [targetsOfSpecialMove, specialMoveActive, moves, matchData]);
 
   //funksjon for å klikke på de vanlige cellene
   const clickCell = (id) => {

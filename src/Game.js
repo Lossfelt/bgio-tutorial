@@ -1,6 +1,6 @@
 import { INVALID_MOVE } from "boardgame.io/core";
 
-//names of the different squares of the board
+// Names of the different squares of the board
 const territories = [
   "the Salt Marches", 
   "the Corn Belt Desert", 
@@ -25,57 +25,79 @@ const strategic_weapons = [
   "Air Strike",
 ];
 
-// Return true if `cells` is in a winning configuration.
-function IsVictory(cells) {
-  const positions = [
-    // Horisontale linjer
-    [0, 1, 2, 3], [4, 5, 6, 7], [8, 9, 10, 11], [12, 13, 14, 15],
-    // Vertikale linjer
-    [0, 4, 8, 12], [1, 5, 9, 13], [2, 6, 10, 14], [3, 7, 11, 15],
-    // Diagonale linjer
-    [0, 5, 10, 15], [3, 6, 9, 12]
-  ];
+// Positions for rows, columns, and diagonals
+const positions = [
+  // Horizontal lines
+  [0, 1, 2, 3], [4, 5, 6, 7], [8, 9, 10, 11], [12, 13, 14, 15],
+  // Vertical lines
+  [0, 4, 8, 12], [1, 5, 9, 13], [2, 6, 10, 14], [3, 7, 11, 15],
+  // Diagonal lines
+  [0, 5, 10, 15], [3, 6, 9, 12]
+];
 
-  const isRowComplete = row => {
+// General validator function
+function ValidatePositions(ids, validator) {
+  return positions.some(row => validator(row, ids));
+}
+
+// Check if `cells` is in a winning configuration
+function IsVictory(cells) {
+  const isRowComplete = (row, cells) => {
     const symbols = row.map(i => cells[i]);
     return symbols.every(i => i !== null && i === symbols[0]);
   };
-
-  return positions.map(isRowComplete).some(i => i === true);
+  return ValidatePositions(cells, isRowComplete);
 }
 
-// Return true if all `cells` are occupied.
-//endre denne til å bli Strategic Assets Unlocked når alle celler er fulle
-/* function IsDraw(cells) {
-  return cells.filter(c => c === null).length === 0;
-} */
+// Check if a set of IDs forms a valid alignment
+function IsAligned(ids) {
+  const areIdsAligned = (row, ids) => row.every(pos => ids.includes(pos));
+  return ValidatePositions(ids, areIdsAligned);
+}
+
+// egen funksjon for å teste om celler er på rad
+function IsRow(input) {
+  return positions.some(row => input.every(pos => row.includes(pos)));
+}
+
+// Helper function to get neighbors for Artillery
+function GetNeighbors(id, boardSize = 4) {
+  const neighbors = [];
+  const row = Math.floor(id / boardSize);
+  const col = id % boardSize;
+
+  if (row > 0) neighbors.push(id - boardSize);       // Above
+  if (row < boardSize - 1) neighbors.push(id + boardSize); // Below
+  if (col > 0) neighbors.push(id - 1);              // Left
+  if (col < boardSize - 1) neighbors.push(id + 1);  // Right
+
+  return neighbors;
+}
 
 // Define the rules of the game
 export const TicTacToe = {
   name: 'TicTacToe',
 
-  setup: () => {
-    return { 
-    cells: Array(16).fill(null), 
+  setup: () => ({
+    cells: Array(16).fill(null),
     log: [],
     blink: Array(16).fill(false),
     lastCellAttacked: null,
     MWD: Array(2).fill(null),
-  }},
+  }),
 
   turn: {
     minMoves: 1,
     maxMoves: 1,
-    onBegin: ({G, ctx, random}) => {
+    onBegin: ({ G, ctx, random }) => {
       G.lastCellAttacked = null;
       G.MWD[ctx.currentPlayer] = strategic_weapons[random.Die(strategic_weapons.length) - 1];
-      //console.log(G.MWD[ctx.currentPlayer]);
     },
-    onEnd: ({G, random}) => {
+    onEnd: ({ G, random }) => {
       for (let i = 0; i < 16; i++) {
         if (G.cells[i] !== null && random.Number() < 0.05 && i !== G.lastCellAttacked) {
           G.cells[i] = null;
-          G.log.unshift(`The people of ${territories[i]} revolt against foreign rule`); //5% chance of revolt
+          G.log.unshift(`The people of ${territories[i]} revolt against foreign rule`);
           G.blink[i] = true;
         }
       }
@@ -87,34 +109,43 @@ export const TicTacToe = {
       G.blink.fill(false);
       if (G.cells[id] === playerID) {
         return INVALID_MOVE;
-      }
-      else if (G.cells[id] !== null) {
+      } else if (G.cells[id] !== null) {
         if (random.Number() < 0.2) {
-          G.cells[id] = playerID; //20% chance of conquering
+          G.cells[id] = playerID; // 20% chance of conquering
           G.log.unshift(`${matchData[playerID].name} conquers ${territories[id]}`);
-        }
-        else {
+        } else {
           G.log.unshift(`${matchData[playerID].name} attempts to invade ${territories[id]}, but fails`);
         }
         G.blink[id] = true;
         G.lastCellAttacked = id;
-      }
-      else {
+      } else {
         G.cells[id] = playerID;
         G.log.unshift(`${matchData[playerID].name} claims ${territories[id]}`);
         G.blink[id] = true;
         G.lastCellAttacked = id;
       }
     },
-    MWD: ({ G, playerID }, id, matchData) => {
-      //todo: implement MWD
+    MWD: ({ G, playerID }, input, matchData) => {
       if (G.MWD[playerID] === "Artillery") {
-        G.log.unshift(`${matchData[playerID].name} launches an artillery strike`);
-        G.lastCellAttacked = id;
-      }
-      else if (G.MWD[playerID] === "Air Strike") {
-        G.log.unshift(`${matchData[playerID].name} launches an air strike`);
-        G.lastCellAttacked = id;
+        const targets = [input, ...GetNeighbors(input)];
+        targets.forEach(target => {
+          G.cells[target] = null; // Destroy targeted cells
+        });
+        G.log.unshift(`${matchData[playerID].name} launches an artillery strike at ${territories[input]} and its neighbors!`);
+        G.lastCellAttacked = input;
+      } else if (G.MWD[playerID] === "Air Strike") {
+        console.log(input);
+        console.log(typeof input);
+        console.log(IsRow(input));
+        if (input.length === 3 && IsRow(input)) {
+          G.log.unshift(`${matchData[playerID].name} launches an Air Strike at ${input.map(id => territories[id]).join(", ")}`);
+          input.forEach(id => {
+            G.cells[id] = null; // Destroy targeted cells
+          });
+          G.lastCellAttacked = input[2];
+        } else {
+          return INVALID_MOVE; // Allow the player to try again
+        }
       }
     },
   },
