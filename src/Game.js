@@ -46,7 +46,24 @@ function IsVictory(cells) {
 
 // funksjon for å teste om celler er på rad, enten horisontalt, vertikalt eller diagonalt, ved Air Strike
 function IsRow(input) {
-  return positions.some(row => input.every(pos => row.includes(pos)));
+  if (input.length !== 3) return false; // Air Strike krever nøyaktig 3 ID-er
+
+  const sortedInput = [...input].sort((a, b) => a - b); // Sorter ID-ene for enkel sjekk
+  const [first, second, third] = sortedInput;
+
+  // Sjekk for horisontal rad
+  const isHorizontal = Math.floor(first / 4) === Math.floor(second / 4) &&
+    Math.floor(second / 4) === Math.floor(third / 4) &&
+    second - first === 1 && third - second === 1;
+
+  // Sjekk for vertikal rad
+  const isVertical = second - first === 4 && third - second === 4;
+
+  // Sjekk for diagonal rad
+  const isDiagonal = (second - first === 5 && third - second === 5) || // Økende diagonal
+    (second - first === 3 && third - second === 3);   // Synkende diagonal
+
+  return isHorizontal || isVertical || isDiagonal;
 }
 
 // Helper function to get neighbors for Artillery
@@ -132,6 +149,7 @@ export const TicTacToe = {
           });
           G.lastCellAttacked = input[2];
         } else {
+          G.blink.fill(false); // Hindre at cellene blinker etter et ugyldig trekk
           return INVALID_MOVE; // Allow the player to try again
         }
       }
