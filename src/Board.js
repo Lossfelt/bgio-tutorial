@@ -84,12 +84,17 @@ export function TicTacToeBoard({ ctx, G, moves, matchData, playerID, isActive })
     let cells = [];
     for (let j = 0; j < 4; j++) {
       const id = 4 * i + j;
+      const isSelected = targetsOfSpecialMove.includes(id); // Sjekk om knappen er valgt til strategisk våpen
       cells.push(
         <td key={id}>
           {G.cells[id] ? (
-            <button className={blinking[id] ? ("knapp blink") : ("knapp")} type='button' onClick={() => clickCell(id)} onAnimationEnd={() => handleAnimationEnd(id)}>{G.cells[id] === "0" ? ("☢") : ("☣")}</button>
+            <button className={`${blinking[id] ? "knapp blink" : "knapp"} ${
+              isSelected ? "selected" : ""
+            }`} type='button' onClick={() => clickCell(id)} onAnimationEnd={() => handleAnimationEnd(id)}>{G.cells[id] === "0" ? ("☢") : ("☣")}</button>
           ) : (
-            <button className={blinking[id] ? ("knapp blink") : ("knapp")} type='button' onClick={() => clickCell(id)} onAnimationEnd={() => handleAnimationEnd(id)} />
+            <button className={`${blinking[id] ? "knapp blink" : "knapp"} ${
+              isSelected ? "selected" : ""
+            }`} type='button' onClick={() => clickCell(id)} onAnimationEnd={() => handleAnimationEnd(id)} />
           )}
         </td>
       );
