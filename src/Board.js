@@ -114,6 +114,7 @@ export function TicTacToeBoard({ ctx, G, moves, matchData, playerID, isActive })
           style={specialMoveActive ? { backgroundColor: "red" } : {}}
           onClick={() => handleSpecialMoveClick()}
           disabled={!isActive}>{G.MWD[playerID]}</button>
+          <div>Rareium: {G.Rareium[playerID]} </div>
         <div className='text'>
           {winner}
         </div>

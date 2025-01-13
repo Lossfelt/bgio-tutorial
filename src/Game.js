@@ -89,7 +89,8 @@ export const TicTacToe = {
     log: [],
     blink: Array(16).fill(false),
     lastCellAttacked: null,
-    MWD: Array(2).fill(null),
+    MWD: Array(2).fill(null), // Hvilket strategisk våpen hver spiller har, hvis noen
+    Rareium: Array(2).fill(0), // Antall Rareium hver spiller har
   }),
 
   turn: {
@@ -97,7 +98,17 @@ export const TicTacToe = {
     maxMoves: 1,
     onBegin: ({ G, ctx, random }) => {
       G.lastCellAttacked = null;
-      G.MWD[ctx.currentPlayer] = strategic_weapons[random.Die(strategic_weapons.length) - 1];
+
+      // Beregn antall celler nåværende spiller eier og oppdater Rareium basert på det
+      const ownedCells = G.cells.filter(cell => cell === ctx.currentPlayer).length;
+      G.Rareium[ctx.currentPlayer] += ownedCells;
+      // Hvis spilleren ikke har et strategisk våpen, sjekk om de får et og nullstill Rareium
+      if (!G.MWD[ctx.currentPlayer]) {
+        if (random.Number() * 100 < G.Rareium[ctx.currentPlayer]) {
+          G.MWD[ctx.currentPlayer] = strategic_weapons[random.Die(strategic_weapons.length) - 1];
+          G.Rareium[ctx.currentPlayer] = 0;
+        }
+      }
     },
     onEnd: ({ G, random }) => {
       for (let i = 0; i < 16; i++) {
@@ -141,6 +152,7 @@ export const TicTacToe = {
         });
         G.log.unshift(`${matchData[playerID].name} launches an Artillery Strike at ${territories[input]} and its neighbors!`);
         G.lastCellAttacked = input;
+        G.MWD[playerID] = null; // Nullstill strategisk våpen etter bruk
       } else if (G.MWD[playerID] === "Air Strike") {
         if (input.length === 3 && IsRow(input)) {
           G.log.unshift(`${matchData[playerID].name} launches an Air Strike at ${input.map(id => territories[id]).join(", ")}`);
@@ -149,6 +161,7 @@ export const TicTacToe = {
             G.blink[id] = true;
           });
           G.lastCellAttacked = input[2];
+          G.MWD[playerID] = null; // Nullstill strategisk våpen etter bruk
         } else {
           G.blink.fill(false); // Hindre at cellene blinker etter et ugyldig trekk
           return INVALID_MOVE; // Allow the player to try again
