@@ -132,6 +132,7 @@ export const TicTacToe = {
       }
     },
     MWD: ({ G, playerID }, input, matchData) => {
+      G.blink.fill(false);
       if (G.MWD[playerID] === "Artillery") {
         const targets = [input, ...GetNeighbors(input)];
         targets.forEach(target => {

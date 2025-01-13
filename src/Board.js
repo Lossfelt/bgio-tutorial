@@ -1,14 +1,25 @@
 import './Board.css'
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+
+// Funksjon for å sjekke om to objekter er like
+const deepEqual = (obj1, obj2) => JSON.stringify(obj1) === JSON.stringify(obj2);
 
 export function TicTacToeBoard({ ctx, G, moves, matchData, playerID, isActive }) {
 
   // Lokal state for å lagre G.blink
   const [blinking, setBlinking] = useState(G.blink);
-  // Oppdater lokal state når G.blink endres
+  // Lagre en referanse til forrige G for å sammenligne
+  const previousGRef = useRef(G);
+  // Oppdater lokal state når G.blink endres, men bare hvis G faktisk har blitt oppdatert
   useEffect(() => {
-    setBlinking(G.blink);
-  }, [G.blink]);
+    const previousG = previousGRef.current;
+
+    if (!deepEqual(G.blink, previousG.blink)) {
+      // G har blitt oppdatert
+      setBlinking(G.blink);
+      previousGRef.current = G; // Oppdater referansen
+    }
+  }, [G]);
   // Funksjon for å håndtere slutten av animasjonen og fjerne blink
   const handleAnimationEnd = (id) => {
     setBlinking((blinking) => {
