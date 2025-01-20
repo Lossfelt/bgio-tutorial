@@ -114,7 +114,7 @@ export function TicTacToeBoard({ ctx, G, moves, matchData, playerID, isActive })
         <table>
           <tbody>{tbody}</tbody>
         </table>
-        <h3>Current turn: {ctx.currentPlayer === "0" ? ("☢") : ("☣")}</h3>
+        <h3>Current turn: {matchData[ctx.currentPlayer]?.name || (ctx.currentPlayer === "0" ? "☢" : "☣")}</h3>
         <button
           style={specialMoveActive ? { backgroundColor: "red" } : {}}
           onClick={() => handleSpecialMoveClick()}
