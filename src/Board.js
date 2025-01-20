@@ -60,6 +60,11 @@ export function TicTacToeBoard({ ctx, G, moves, matchData, playerID, isActive })
       setTargetsOfSpecialMove([]);
       setSpecialMoveActive(false);
     }
+    if (specialMoveActive === "Biological Warfare" && targetsOfSpecialMove.length === 1) {
+      moves.MWD(targetsOfSpecialMove[0], matchData);
+      setTargetsOfSpecialMove([]);
+      setSpecialMoveActive(false);
+    }
   }, [targetsOfSpecialMove, specialMoveActive, moves, matchData]);
 
   //funksjon for å klikke på de vanlige cellene

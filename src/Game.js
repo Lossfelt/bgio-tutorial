@@ -2,12 +2,12 @@ import { INVALID_MOVE } from "boardgame.io/core";
 
 // Names of the different squares of the board
 const territories = [
-  "the Salt Marches", 
-  "the Corn Belt Desert", 
-  "Hudson's Pit", 
+  "the Salt Marches",
+  "the Corn Belt Desert",
+  "Hudson's Pit",
   "Port Orchard",
-  "Port Crater", 
-  "the Savannah Fragments", 
+  "Port Crater",
+  "the Savannah Fragments",
   "the Ash Plains",
   "the Rust Belt Ruins",
   "Angels' Remnants",
@@ -23,6 +23,7 @@ const territories = [
 const strategic_weapons = [
   "Artillery",
   "Air Strike",
+  "Biological Warfare",
 ];
 
 // Positions for rows, columns, and diagonals
@@ -79,6 +80,29 @@ function GetNeighbors(id, boardSize = 4) {
 
   return neighbors;
 }
+
+// Definere alle naboer for en celle, brukt til Biological Warfare
+function GetSurroundingCells(id, boardSize = 4) {
+  const neighbors = [];
+  const row = Math.floor(id / boardSize);
+  const col = id % boardSize;
+
+  // Loop gjennom 3x3-ruten rundt den valgte cellen
+  for (let dr = -1; dr <= 1; dr++) {
+    for (let dc = -1; dc <= 1; dc++) {
+      const newRow = row + dr;
+      const newCol = col + dc;
+
+      // Sjekk at cellen er innenfor brettets grenser
+      if (newRow >= 0 && newRow < boardSize && newCol >= 0 && newCol < boardSize) {
+        neighbors.push(newRow * boardSize + newCol);
+      }
+    }
+  }
+
+  return neighbors;
+}
+
 
 // Define the rules of the game
 export const TicTacToe = {
@@ -142,7 +166,7 @@ export const TicTacToe = {
         G.lastCellAttacked = id;
       }
     },
-    MWD: ({ G, playerID }, input, matchData) => {
+    MWD: ({ G, playerID, random }, input, matchData) => {
       G.blink.fill(false);
       if (G.MWD[playerID] === "Artillery") {
         const targets = [input, ...GetNeighbors(input)];
@@ -166,6 +190,17 @@ export const TicTacToe = {
           G.blink.fill(false); // Hindre at cellene blinker etter et ugyldig trekk
           return INVALID_MOVE; // Allow the player to try again
         }
+      } else if (G.MWD[playerID] === "Biological Warfare") {
+        const targets = GetSurroundingCells(input);
+        targets.forEach(target => {
+          if (random.Number() < 0.5) {
+            G.cells[target] = null; // Destroy targeted cells
+            G.blink[target] = true;
+          }
+        });
+        G.log.unshift(`${matchData[playerID].name} releases a Biological Weapon at ${territories[input]} and its surroundings!`);
+        G.lastCellAttacked = input;
+        G.MWD[playerID] = null; // Nullstill strategisk våpen etter bruk
       }
     },
   },
