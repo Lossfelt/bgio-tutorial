@@ -21,9 +21,9 @@ const territories = [
 ];
 
 const strategic_weapons = [
-  "Artillery",
-  "Air Strike",
-  "Biological Warfare",
+  "Artillery", //Overload Explosion
+  "Air Strike", //Orbital Laser
+  "Biological Warfare", //Viral Bomb
 ];
 
 // Positions for rows, columns, and diagonals
