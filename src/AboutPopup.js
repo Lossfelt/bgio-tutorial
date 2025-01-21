@@ -32,7 +32,16 @@ const AboutPopup = ({ onClose }) => {
         <h2>Rules</h2>
         <p>
         In this game, you will play as either the Mexican Queendom or the Pan-Canadia Inuit Alliance.
-        Your goal is to be the first to have three of your faction's flag in a row, either horizontally, vertically, or diagonally.
+        Your goal is to be the first to have four of your faction's flag in a row, either horizontally, vertically, or diagonally.
+
+        Like regular Tic Tac Toe, play proceeds turn-based, each player able to claim a square on the board.
+        Unlike Tic Tac Toe, however, players may try to claim the oppononts squares (with low probability of success).
+        Also, each controlled square has a small chance each round of rebelling, causing the controlling player to loose that square.
+        Additionally, each square controlled gives the player 1 unit of the resource Rareium per round. Rareium, in turn, has a chance to unlook the use of strategic weapons.
+        The available stategic weapons are:
+        - Artillery: destroys target square and the four orthogonal neighbours
+        - Air Strike: destroys three target squares in a line
+        - Biological Warfare: for each square in target square and the eight surrounding squares, there's a 50% chance they will be destroyed.
         </p>
       </div>
     </div>
