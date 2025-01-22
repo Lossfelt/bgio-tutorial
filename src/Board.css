@@ -170,12 +170,13 @@ ul {
   padding: 0 10px;
 }
 
-.close-button {
+.popup-content > button {
   align-self: flex-end;
   background: none;
   border: none;
   font-size: 1.5rem;
   cursor: pointer;
+  background-color: #989898;
 }
 
 .popup > img {
