@@ -80,7 +80,19 @@ export function TicTacToeBoard({ ctx, G, moves, matchData, playerID, isActive })
   let winner = '';
   if (ctx.gameover) {
     winner = (
-      <div id="winner">Winner: {ctx.gameover.winner === "0" ? (matchData[0]?.name || "☢") : (matchData[1]?.name || "☣")}</div>
+      <div id="winner">
+      Winner: {ctx.gameover.winner === "0" ? (
+        <>
+        {matchData[0]?.name || "Queendom"}
+        <img src="/Queendom_icon.png" alt="Queendom" style={{ height: '1em', verticalAlign: 'middle' }} />
+        </>
+      ) : (
+        <>
+        {matchData[1]?.name || "Pan-Canadia"}
+        <img src="/Pan-Canadia_icon.png" alt="Pan-Canadia" style={{ height: '1em', verticalAlign: 'middle' }} />
+        </>
+      )}
+      </div>
     );
   }
 
@@ -112,17 +124,29 @@ export function TicTacToeBoard({ ctx, G, moves, matchData, playerID, isActive })
   return (
     <div className="container">
       <div className='center-content'>
-        <h1>{matchData[0].name}☢ vs {matchData[1].name}☣</h1>
+        <h1>
+          {matchData[0].name}
+          <img src="/Queendom_icon.png" alt="Queendom" style={{ height: '1em', verticalAlign: 'middle' }} /> 
+          &nbsp;vs&nbsp; 
+          {matchData[1].name}
+          <img src="/Pan-Canadia_icon.png" alt="Pan-Canadia" style={{ height: '1em', verticalAlign: 'middle' }} />
+        </h1>
         <table>
           <tbody>{tbody}</tbody>
         </table>
-        <h3>Current turn: {matchData[ctx.currentPlayer]?.name || (ctx.currentPlayer === "0" ? "☢" : "☣")}</h3>
+        <h3>
+          Current turn: {matchData[ctx.currentPlayer]?.name || (
+            ctx.currentPlayer === "0" ? 
+            <img src="/Queendom_icon.png" alt="Queendom" style={{ height: '1em', verticalAlign: 'middle' }} /> : 
+            <img src="/Pan-Canadia_icon.png" alt="Pan-Canadia" style={{ height: '1em', verticalAlign: 'middle' }} />
+          )}
+        </h3>
         <button
-        className='strategic_weapons'
+          className='strategic_weapons'
           style={specialMoveActive ? { backgroundColor: "red" } : {}}
           onClick={() => handleSpecialMoveClick()}
           disabled={!isActive}>{G.MWD[playerID]}</button>
-          <div>Rareium: {G.Rareium[playerID]} </div>
+        <div>Rareium: {G.Rareium[playerID]} </div>
         <div className='text'>
           {winner}
         </div>
