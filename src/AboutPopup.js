@@ -4,7 +4,7 @@ import './Board.css';
 const AboutPopup = ({ onClose }) => {
   return (
     <div className="popup">
-      <div>
+      <div className='popup-content'>
         <button onClick={onClose} className="close-button">Close</button>
         <h2>Background</h2>
         <p>
