@@ -86,16 +86,20 @@
 }
 
 .center-content button {
-  padding: 10px 20px;
   border: none;
   border-radius: 4px;
-  background-color: #007BFF;
+  background-color: #dfdfdf;
   color: white;
   cursor: pointer;
 }
 
 .center-content button:hover {
-  background-color: #0056b3;
+  background-color: #565656;
+}
+
+button.strategic_weapons {
+  padding: 15px 30px;
+  background-color: #8d8c8c;
 }
 
 .create-game {
@@ -116,6 +120,7 @@
 
 .match-ID-and-leave-button button {
   margin-bottom: 5px;
+  background-color: #8d8c8c;
 }
 
 .gameLog {

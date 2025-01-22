@@ -93,13 +93,15 @@ export function TicTacToeBoard({ ctx, G, moves, matchData, playerID, isActive })
       cells.push(
         <td key={id}>
           {G.cells[id] ? (
-            <button className={`${blinking[id] ? "knapp blink" : "knapp"} ${
-              isSelected ? "selected" : ""
-            }`} type='button' onClick={() => clickCell(id)} onAnimationEnd={() => handleAnimationEnd(id)}>{G.cells[id] === "0" ? ("☢") : ("☣")}</button>
+        <button className={`${blinking[id] ? "knapp blink" : "knapp"} ${
+          isSelected ? "selected" : ""
+        }`} type='button' onClick={() => clickCell(id)} onAnimationEnd={() => handleAnimationEnd(id)}>
+          <img src={G.cells[id] === "0" ? "/Queendom_icon.png" : "/Pan-Canadia_icon.png"} alt={G.cells[id] === "0" ? "Queendom" : "Pan-Canadia"} style={{ width: '100%', height: '100%' }} />
+        </button>
           ) : (
-            <button className={`${blinking[id] ? "knapp blink" : "knapp"} ${
-              isSelected ? "selected" : ""
-            }`} type='button' onClick={() => clickCell(id)} onAnimationEnd={() => handleAnimationEnd(id)} />
+        <button className={`${blinking[id] ? "knapp blink" : "knapp"} ${
+          isSelected ? "selected" : ""
+        }`} type='button' onClick={() => clickCell(id)} onAnimationEnd={() => handleAnimationEnd(id)} />
           )}
         </td>
       );
@@ -116,6 +118,7 @@ export function TicTacToeBoard({ ctx, G, moves, matchData, playerID, isActive })
         </table>
         <h3>Current turn: {matchData[ctx.currentPlayer]?.name || (ctx.currentPlayer === "0" ? "☢" : "☣")}</h3>
         <button
+        className='strategic_weapons'
           style={specialMoveActive ? { backgroundColor: "red" } : {}}
           onClick={() => handleSpecialMoveClick()}
           disabled={!isActive}>{G.MWD[playerID]}</button>
