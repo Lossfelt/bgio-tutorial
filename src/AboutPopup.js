@@ -14,6 +14,7 @@ const AboutPopup = ({ onClose }) => {
         </p>
         <h2>The Mexican Queendom</h2>
         <img style={{ width: '50%' }} src={process.env.PUBLIC_URL + '/Mexican_Queendom.jpg'} alt="Mexican Queendom flag" />
+        <img style={{ width: '20%' }} src={process.env.PUBLIC_URL + '/Queendom_icon.png'} alt="Mexican Queendom icon" />
         <p>
         The Mexican Queendom is a matriarchal society where the queen is both the head of state, the head of the church and the head of the cartels.
         It's a totalitarian regime where the queen's word is law, controlling every level of society.
@@ -22,6 +23,7 @@ const AboutPopup = ({ onClose }) => {
         </p>
         <h2>The Pan-Canadia Inuit Alliance</h2>
         <img style={{ width: '50%' }} src={process.env.PUBLIC_URL + '/Pan-Canadia.jpg'} alt="Pan-Canadia Inuit Alliance flag" />
+        <img style={{ width: '20%' }} src={process.env.PUBLIC_URL + '/Pan-Canadia_icon.png'} alt="Pan-Canadia Inuit Alliance icon" />
         <p>
         The Pan-Canadia Inuit Alliance is a confederation of Inuit tribes that originally banded together to protect their lands.
         The Alliance has through deft political manouvering and cunning trade deals managed to become a major player on the world stage.
