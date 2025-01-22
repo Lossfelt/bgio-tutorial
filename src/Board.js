@@ -80,7 +80,7 @@ export function TicTacToeBoard({ ctx, G, moves, matchData, playerID, isActive })
   let winner = '';
   if (ctx.gameover) {
     winner = (
-      <div id="winner">Winner: {ctx.gameover.winner === "0" ? ("☢") : ("☣")}</div>
+      <div id="winner">Winner: {ctx.gameover.winner === "0" ? (matchData[0]?.name || "☢") : (matchData[1]?.name || "☣")}</div>
     );
   }
 
