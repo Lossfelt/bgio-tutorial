@@ -125,10 +125,10 @@ export function TicTacToeBoard({ ctx, G, moves, matchData, playerID, isActive })
     <div className="container">
       <div className='center-content'>
         <h1>
-          {matchData[0].name}
+          {matchData[0].name} &nbsp;
           <img src="/Queendom_icon.png" alt="Queendom" style={{ height: '1em', verticalAlign: 'middle' }} /> 
           &nbsp;vs&nbsp; 
-          {matchData[1].name}
+          {matchData[1].name} &nbsp;
           <img src="/Pan-Canadia_icon.png" alt="Pan-Canadia" style={{ height: '1em', verticalAlign: 'middle' }} />
         </h1>
         <table>
