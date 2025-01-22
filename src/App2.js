@@ -76,14 +76,14 @@ const App = () => {
             {!name ? (
                 <form onSubmit={handleNameChange}>
                     <input ref={nameInput} type='text' placeholder='Enter your name' />
-                    <button type="submit">Submit</button>
+                    <button className='submit' type="submit">Submit</button>
                 </form>
             ) : !joined ? (
                 <div>
                     <div className='create-game'>
                         <button onClick={handleCreate}>Create Game</button>
                     </div>
-                    <div>
+                    <div className='create-game'>
                         <input ref={matchInput} type='number' placeholder='Enter match ID' />
                         <button onClick={() => handleJoin()}>Join Game</button>
                     </div>

@@ -85,6 +85,10 @@
   max-width: fit-content;
 }
 
+.center-content form button {
+  background-color: #8d8c8c;
+}
+
 .center-content button {
   border: none;
   border-radius: 4px;
@@ -104,6 +108,11 @@ button.strategic_weapons {
 
 .create-game {
   margin-bottom: 50px;
+}
+
+.create-game button {
+  padding: 5px;
+  background-color: #8d8c8c;
 }
 
 .match-ID-and-leave-button {
