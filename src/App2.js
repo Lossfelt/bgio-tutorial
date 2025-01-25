@@ -1,11 +1,11 @@
-import { TicTacToe } from './Game';
-import { TicTacToeBoard } from './Board';
-import { Client } from 'boardgame.io/react';
-import { SocketIO } from 'boardgame.io/multiplayer';
-import { LobbyClient } from 'boardgame.io/client';
+import { TicTacToe } from './Game.js';
+import { TicTacToeBoard } from './Board.js';
+import { Client } from 'boardgame.io/dist/cjs/react.js';
+import { SocketIO } from 'boardgame.io/dist/cjs/multiplayer.js';
+import { LobbyClient } from 'boardgame.io/dist/cjs/client.js';
 import React, { useState, useRef } from 'react';
 import './Board.css';
-import AboutPopup from './AboutPopup';
+import AboutPopup from './AboutPopup.js';
 
 const TicTacToeClient = Client({
     game: TicTacToe,
