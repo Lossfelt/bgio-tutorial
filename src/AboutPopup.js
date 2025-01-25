@@ -45,8 +45,8 @@ const AboutPopup = ({ onClose }) => {
         <p>The available strategic weapons are:</p>
         <ul>
           <li>Artillery: destroys target square and the four orthogonal neighbours</li>
-          <li>Air Strike: destroys three target squares in a line</li>
-          <li>Biological Warfare: for each square in target square and the eight surrounding squares, there's a 50% chance they will be destroyed.</li>
+          <li>Air Strike: destroys three target squares in a line (vertical, horizontal or diagonal, must be next to each other)</li>
+          <li>Biological Warfare: each square in a three by three area around the target has a 50% chance to be destroyed</li>
         </ul>
       </div>
     </div>
