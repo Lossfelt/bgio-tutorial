@@ -1,6 +1,5 @@
 import { Server } from 'boardgame.io/dist/cjs/server.js';
 import { TicTacToe } from './Game.js';
-import Koa from 'koa';
 import cors from '@koa/cors';
 import { nanoid } from 'nanoid';
 
