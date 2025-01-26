@@ -1,11 +1,17 @@
-import './Board.css'
+import './Board.css';
 import React, { useState, useEffect, useRef } from 'react';
 
 // Funksjon for å sjekke om to objekter er like
 const deepEqual = (obj1, obj2) => JSON.stringify(obj1) === JSON.stringify(obj2);
 
-export function TicTacToeBoard({ ctx, G, moves, matchData, playerID, isActive }) {
-
+export function TicTacToeBoard({
+  ctx,
+  G,
+  moves,
+  matchData,
+  playerID,
+  isActive,
+}) {
   // Lokal state for å lagre G.blink
   const [blinking, setBlinking] = useState(G.blink);
   // Lagre en referanse til forrige G for å sammenligne
@@ -46,21 +52,30 @@ export function TicTacToeBoard({ ctx, G, moves, matchData, playerID, isActive })
     setTargetsOfSpecialMove((targetsOfSpecialMove) => {
       const newTargets = [...targetsOfSpecialMove, id];
       return newTargets;
-    })
-  }
+    });
+  };
   //Bruk av strategisk våpen
   useEffect(() => {
-    if (specialMoveActive === "Air Strike" && targetsOfSpecialMove.length === 3) {
+    if (
+      specialMoveActive === 'Air Strike' &&
+      targetsOfSpecialMove.length === 3
+    ) {
       moves.MWD(targetsOfSpecialMove, matchData);
       setTargetsOfSpecialMove([]);
       setSpecialMoveActive(false);
     }
-    if (specialMoveActive === "Artillery" && targetsOfSpecialMove.length === 1) {
+    if (
+      specialMoveActive === 'Artillery' &&
+      targetsOfSpecialMove.length === 1
+    ) {
       moves.MWD(targetsOfSpecialMove[0], matchData);
       setTargetsOfSpecialMove([]);
       setSpecialMoveActive(false);
     }
-    if (specialMoveActive === "Biological Warfare" && targetsOfSpecialMove.length === 1) {
+    if (
+      specialMoveActive === 'Biological Warfare' &&
+      targetsOfSpecialMove.length === 1
+    ) {
       moves.MWD(targetsOfSpecialMove[0], matchData);
       setTargetsOfSpecialMove([]);
       setSpecialMoveActive(false);
@@ -71,8 +86,7 @@ export function TicTacToeBoard({ ctx, G, moves, matchData, playerID, isActive })
   const clickCell = (id) => {
     if (specialMoveActive) {
       specialAttack(id);
-    }
-    else {
+    } else {
       moves.clickCell(id, matchData);
     }
   };
@@ -81,17 +95,26 @@ export function TicTacToeBoard({ ctx, G, moves, matchData, playerID, isActive })
   if (ctx.gameover) {
     winner = (
       <div id="winner">
-      Winner: {ctx.gameover.winner === "0" ? (
-        <>
-        {matchData[0]?.name || "Queendom"}
-        <img src="/Queendom_icon.png" alt="Queendom" style={{ height: '1em', verticalAlign: 'middle' }} />
-        </>
-      ) : (
-        <>
-        {matchData[1]?.name || "Pan-Canadia"}
-        <img src="/Pan-Canadia_icon.png" alt="Pan-Canadia" style={{ height: '1em', verticalAlign: 'middle' }} />
-        </>
-      )}
+        Winner:{' '}
+        {ctx.gameover.winner === '0' ? (
+          <>
+            {matchData[0]?.name || 'Queendom'}
+            <img
+              src="/Queendom_icon.png"
+              alt="Queendom"
+              style={{ height: '1em', verticalAlign: 'middle' }}
+            />
+          </>
+        ) : (
+          <>
+            {matchData[1]?.name || 'Pan-Canadia'}
+            <img
+              src="/Pan-Canadia_icon.png"
+              alt="Pan-Canadia"
+              style={{ height: '1em', verticalAlign: 'middle' }}
+            />
+          </>
+        )}
       </div>
     );
   }
@@ -105,17 +128,35 @@ export function TicTacToeBoard({ ctx, G, moves, matchData, playerID, isActive })
       cells.push(
         <td key={id}>
           {G.cells[id] ? (
-        <button className={`${blinking[id] ? "knapp blink" : "knapp"} ${
-          isSelected ? "selected" : ""
-        }`} type='button' onClick={() => clickCell(id)} onAnimationEnd={() => handleAnimationEnd(id)}>
-          <img src={G.cells[id] === "0" ? "/Queendom_icon.png" : "/Pan-Canadia_icon.png"} alt={G.cells[id] === "0" ? "Queendom" : "Pan-Canadia"} style={{ width: '100%', height: '100%' }} />
-        </button>
+            <button
+              className={`${blinking[id] ? 'knapp blink' : 'knapp'} ${
+                isSelected ? 'selected' : ''
+              }`}
+              type="button"
+              onClick={() => clickCell(id)}
+              onAnimationEnd={() => handleAnimationEnd(id)}
+            >
+              <img
+                src={
+                  G.cells[id] === '0'
+                    ? '/Queendom_icon.png'
+                    : '/Pan-Canadia_icon.png'
+                }
+                alt={G.cells[id] === '0' ? 'Queendom' : 'Pan-Canadia'}
+                style={{ width: '100%', height: '100%' }}
+              />
+            </button>
           ) : (
-        <button className={`${blinking[id] ? "knapp blink" : "knapp"} ${
-          isSelected ? "selected" : ""
-        }`} type='button' onClick={() => clickCell(id)} onAnimationEnd={() => handleAnimationEnd(id)} />
+            <button
+              className={`${blinking[id] ? 'knapp blink' : 'knapp'} ${
+                isSelected ? 'selected' : ''
+              }`}
+              type="button"
+              onClick={() => clickCell(id)}
+              onAnimationEnd={() => handleAnimationEnd(id)}
+            />
           )}
-        </td>
+        </td>,
       );
     }
     tbody.push(<tr key={i}>{cells}</tr>);
@@ -123,34 +164,53 @@ export function TicTacToeBoard({ ctx, G, moves, matchData, playerID, isActive })
 
   return (
     <div className="container">
-      <div className='center-content'>
+      <div className="center-content">
         <h1>
           {matchData[0].name} &nbsp;
-          <img src="/Queendom_icon.png" alt="Queendom" style={{ height: '1em', verticalAlign: 'middle' }} /> 
-          &nbsp;vs&nbsp; 
+          <img
+            src="/Queendom_icon.png"
+            alt="Queendom"
+            style={{ height: '1em', verticalAlign: 'middle' }}
+          />
+          &nbsp;vs&nbsp;
           {matchData[1].name} &nbsp;
-          <img src="/Pan-Canadia_icon.png" alt="Pan-Canadia" style={{ height: '1em', verticalAlign: 'middle' }} />
+          <img
+            src="/Pan-Canadia_icon.png"
+            alt="Pan-Canadia"
+            style={{ height: '1em', verticalAlign: 'middle' }}
+          />
         </h1>
         <table>
           <tbody>{tbody}</tbody>
         </table>
         <h3>
-          Current turn: {matchData[ctx.currentPlayer]?.name || (
-            ctx.currentPlayer === "0" ? 
-            <img src="/Queendom_icon.png" alt="Queendom" style={{ height: '1em', verticalAlign: 'middle' }} /> : 
-            <img src="/Pan-Canadia_icon.png" alt="Pan-Canadia" style={{ height: '1em', verticalAlign: 'middle' }} />
-          )}
+          Current turn:{' '}
+          {matchData[ctx.currentPlayer]?.name ||
+            (ctx.currentPlayer === '0' ? (
+              <img
+                src="/Queendom_icon.png"
+                alt="Queendom"
+                style={{ height: '1em', verticalAlign: 'middle' }}
+              />
+            ) : (
+              <img
+                src="/Pan-Canadia_icon.png"
+                alt="Pan-Canadia"
+                style={{ height: '1em', verticalAlign: 'middle' }}
+              />
+            ))}
         </h3>
         <button
-          className='strategic_weapons'
-          style={specialMoveActive ? { backgroundColor: "red" } : {}}
+          className="strategic_weapons"
+          style={specialMoveActive ? { backgroundColor: 'red' } : {}}
           onClick={() => handleSpecialMoveClick()}
-          disabled={!isActive}>{G.MWD[playerID]}</button>
+          disabled={!isActive}
+        >
+          {G.MWD[playerID]}
+        </button>
         <div>Rareium: {G.Rareium[playerID]} </div>
-        <div className='text'>
-          {winner}
-        </div>
-        <div className='gameLog'>
+        <div className="text">{winner}</div>
+        <div className="gameLog">
           <h2>Game Log</h2>
           <ul>
             {G.log.map((entry, index) => (
